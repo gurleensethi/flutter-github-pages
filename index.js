@@ -34,7 +34,7 @@ async function downloadFlutter() {
     exec.exec("ls -l");
     exec.exec("ls -l flutter_sdk");
     const sdkDir = "flutter_sdk/flutter";
-    cachedPath = toolCache.cacheDir(sdkDir);    
+    cachedPath = toolCache.cacheDir(sdkDir);
   }
   core.exportVariable("FLUTTER_HOME", cachedPath);
   core.addPath(cachedPath);
