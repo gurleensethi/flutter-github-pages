@@ -1,0 +1,13 @@
+name: "Flutter Github Pages"
+description: "An action that deploys a flutter web app directly to Github pages."
+inputs:
+  test:
+    description: "Who to greet"
+    required: true
+    default: "World"
+outputs:
+  time:
+    description: "The time we greeted you"
+runs:
+  using: "node12"
+  main: "index.js"

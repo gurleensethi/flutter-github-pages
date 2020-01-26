@@ -1,0 +1,30 @@
+{
+  "name": "flutter-github-pages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gurleensethi/flutter-github-pages.git"
+  },
+  "keywords": [
+    "github",
+    "actions",
+    "flutter",
+    "pages",
+    "dart"
+  ],
+  "author": "Gurleen Sethi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gurleensethi/flutter-github-pages/issues"
+  },
+  "homepage": "https://github.com/gurleensethi/flutter-github-pages#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.2",
+    "@actions/github": "^2.1.0"
+  }
+}
