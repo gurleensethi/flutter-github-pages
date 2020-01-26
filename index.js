@@ -27,7 +27,7 @@ async function downloadFlutter() {
   // Create a folder
   let cachedPath = toolCache.find("flutter", "v1.12.13+hotfix.5");
   console.log("Cached Path:", cachedPath);
-  if (!cachedPath) {
+  if (!cachedPath.trim()) {
     await io.mkdirP("flutter_sdk");
     const sdkFile = await toolCache.downloadTool(getFlutterUrl());
     await toolCache.extractTar("flutter_sdk", sdkFile, "xz");
@@ -45,11 +45,11 @@ downloadFlutter()
   .then(() => {})
   .catch(error => {
     console.log(error);
-    core.setFailed(error);
+    core.setFailed(error.message);
   });
 
 process.on("uncaughtException", err => {
   console.error(err.stack);
   console.log("Node NOT Exiting...");
-  core.setFailed(error);
+  core.setFailed(error.message);
 });
