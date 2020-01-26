@@ -3,6 +3,7 @@ const github = require("@actions/github");
 const io = require("@actions/io");
 const toolCache = require("@actions/tool-cache");
 const exec = require("@actions/exec");
+const fs = require("fs");
 
 // try {
 //   const nameToGreet = core.getInput("who-to-greet");
@@ -25,23 +26,30 @@ function getFlutterUrl(
 
 async function downloadFlutter() {
   // Create a folder
-  let cachedPath = toolCache.find("flutter", "v1.12.13+hotfix.5");
+  let cachedPath = toolCache.find("flutter", "1.12.13");
   console.log("Cached Path:", cachedPath);
   if (!cachedPath.trim()) {
-    await io.mkdirP("flutter_sdk");
-    const sdkFile = await toolCache.downloadTool(getFlutterUrl());
-    await toolCache.extractTar("flutter_sdk", sdkFile, "xz");
-    exec.exec("pwd");
-    exec.exec("ls -l");
-    exec.exec("ls -l flutter_sdk");
-    const sdkDir = "flutter_sdk/flutter";
-    cachedPath = toolCache.cacheDir(sdkDir);
+    const url = getFlutterUrl();
+    console.log("Dowloading Flutter from", url);
+    const sdkFile = await toolCache.downloadTool(url);
+    console.log("SDK File", sdkFile);
+    await toolCache.extractTar(sdkFile, "flutter-sdk", "x");
+    cachedPath = await toolCache.cacheDir(
+      "flutter-sdk/flutter",
+      "flutter",
+      "1.12.13"
+    );
   }
-  core.exportVariable("FLUTTER_HOME", cachedPath);
-  core.addPath(cachedPath);
+  core.exportVariable("FLUTTER_HOME", `${cachedPath}`);
+  core.addPath(`${cachedPath}/bin`);
+  try {
+    await exec.exec("flutter --version");
+  } catch (error) {
+    console.log("Here is an error");
+    console.log(error);
+    core.error(error);
+  }
 }
-
-console.log(getFlutterUrl());
 
 downloadFlutter()
   .then(() => {})
