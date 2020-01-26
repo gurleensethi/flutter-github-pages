@@ -20,7 +20,7 @@ function getFlutterUrl(
 ) {
   const version = options.version || "v1.12.13+hotfix.5";
   const channel = options.channel || "stable";
-  return `https://storage.googleapis.com/flutter_infra/releases/${channel}/linux/flutter_linux_v${version}-${channel}.tar.xz`;
+  return `https://storage.googleapis.com/flutter_infra/releases/${channel}/linux/flutter_linux_${version}-${channel}.tar.xz`;
 }
 
 async function downloadFlutter() {
@@ -40,6 +40,8 @@ async function downloadFlutter() {
   core.exportVariable("FLUTTER_HOME", cachedPath);
   core.addPath(cachedPath);
 }
+
+console.log(getFlutterUrl());
 
 downloadFlutter()
   .then(() => {})
