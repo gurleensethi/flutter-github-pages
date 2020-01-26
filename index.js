@@ -28,11 +28,13 @@ async function downloadFlutter() {
   let cachedPath = toolCache.find("flutter");
   if (!!flutterPath) {
     await io.mkdirP("flutter_sdk");
-    const url = getFlutterUrl();
     const sdkFile = await toolCache.downloadTool(getFlutterUrl());
     await toolCache.extractTar("flutter_sdk", sdkFile, "xz");
+    exec.exec("pwd");
+    exec.exec("ls -l");
+    exec.exec("ls -l flutter_sdk");
     const sdkDir = "flutter_sdk/flutter";
-    cachedPath = toolCache.cacheDir(sdkDir);
+    cachedPath = toolCache.cacheDir(sdkDir);    
   }
   core.exportVariable("FLUTTER_HOME", cachedPath);
   core.addPath(cachedPath);
