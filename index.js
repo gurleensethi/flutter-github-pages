@@ -40,11 +40,8 @@ async function downloadFlutter() {
   core.addPath(cachedPath);
 }
 
-(async () => {
-  try {
-    await downloadFlutter();
-    exec.exec("flutter --version");
-  } catch (error) {
+downloadFlutter()
+  .then(() => {})
+  .catch(error => {
     core.setFailed(error);
-  }
-})();
+  });
