@@ -27,7 +27,7 @@ async function downloadFlutter() {
   // Create a folder
   let cachedPath = toolCache.find("flutter", "v1.12.13+hotfix.5");
   console.log("Cached Path:", cachedPath);
-  if (!!cachedPath) {
+  if (!cachedPath) {
     await io.mkdirP("flutter_sdk");
     const sdkFile = await toolCache.downloadTool(getFlutterUrl());
     await toolCache.extractTar("flutter_sdk", sdkFile, "xz");
