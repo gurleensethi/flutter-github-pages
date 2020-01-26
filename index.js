@@ -26,6 +26,7 @@ function getFlutterUrl(
 async function downloadFlutter() {
   // Create a folder
   let cachedPath = toolCache.find("flutter");
+  console.log("Cached Path:", cachedPath);
   if (!!flutterPath) {
     await io.mkdirP("flutter_sdk");
     const sdkFile = await toolCache.downloadTool(getFlutterUrl());
@@ -45,3 +46,9 @@ downloadFlutter()
   .catch(error => {
     core.setFailed(error);
   });
+
+process.on("uncaughtException", err => {
+  console.error(err.stack);
+  console.log("Node NOT Exiting...");
+  core.setFailed(error);
+});
